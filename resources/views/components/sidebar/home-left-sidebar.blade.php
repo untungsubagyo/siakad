@@ -15,14 +15,14 @@
 
                 <li>
                     <a href="index.html">
-                        <i data-feather="target"></i>
+                        <i data-feather="home"></i>
                         <span data-key="t-dashboard">Identitas PT</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="{{ route('educational_unit.index') }}">
-                        <i data-feather="server"></i>
+                    <a href="index.html">
+                        <i data-feather="home"></i>
                         <span data-key="t-dashboard">Daftar PT</span>
                     </a>
                 </li>
@@ -52,7 +52,7 @@
                     <a href="{{route('room.index')}}">
                         <i data-feather="codepen"></i>
                         <span data-key="t-dashboard">Ruangan</span>
-                    </a> 
+                    </a>
                 </li>
 
                 <li>
