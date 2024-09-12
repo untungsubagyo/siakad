@@ -21,7 +21,7 @@
                 </li>
 
                 <li>
-                    <a href="index.html">
+                    <a href="{{route('educational_unit.index')}}">
                         <i data-feather="home"></i>
                         <span data-key="t-dashboard">Daftar PT</span>
                     </a>
