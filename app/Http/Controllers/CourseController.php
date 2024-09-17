@@ -28,7 +28,7 @@ class CourseController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $courses = Course::with('prodi', 'education_level', 'course_group', 'course_type')->get();
+            $courses = Course::with(['prodi', 'education_level', 'course_group', 'course_type'])->get();
             return DataTables::of($courses)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
@@ -93,6 +93,11 @@ class CourseController extends Controller
         // dd($group, $type); // Check what data is being passed
 
         return view('pages.admin.course.form', compact('prodis', 'education_levels', 'group', 'type'));
+    }
+
+    public function searchProdi (Request $request) {
+        $search = $request->query('nama_prodi') != '' ? $request->query('nama_prodi') : 'null';
+        return $request->ajax() ? Prodi::where('nama_prodi', 'like', "%$search%")->get() : abort(404);
     }
 
     public function store(Request $request)

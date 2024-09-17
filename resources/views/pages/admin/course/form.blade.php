@@ -49,11 +49,8 @@
                                 {{-- Prodi --}}
                                 <div class="form-group">
                                     <label for="prodi_id">Prodi</label>
-                                    <select name="prodi_id" id="prodi_id" class="form-control" required>
-                                        <option value="">Pilih...</option>
-                                        @foreach($prodis as $prodi)
-                                            <option value="{{ $prodi->id }}">{{ $prodi->name }}</option>
-                                        @endforeach
+                                    <select name="prodi_id" id="prodi-selector" class="form-control" required>
+                                        <option value="" selected>Pilih...</option>
                                     </select>
                                 </div>
 
@@ -208,4 +205,34 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $("#prodi-selector").select2({
+        ajax: {
+            delay: 250,
+            url: '{{ url('/') }}/admin/course/search_prodi',
+            data (params) {
+                var query = {
+                    nama_prodi: params.term,
+                }
+                return query;
+            },
+            processResults (data) {
+                return {
+                    results: data.map(item => ({
+                        id: item.id,  // The value for the option
+                        text: `${item.nama_prodi}`  // The displayed text
+                    }))
+                }
+            }
+        },
+        minimumInputLength: 1,
+        templateResult (res) {
+            return res.text
+        }
+    })
+</script>
+
 @endsection
