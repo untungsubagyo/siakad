@@ -11,11 +11,11 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RolesTableSeeder::class,
             UsersTableSeeder::class,
-            PeriodPmbSeeder::class
         ]);
 
         $this->call([
             ActiveStatusSeeder::class,
+            IdentitasPt::class,
             CourseTypeSeeder::class,
             CourseGroupSeeder::class,
             EmployeeLevelSeeder::class
