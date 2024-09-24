@@ -36,11 +36,11 @@
                                         <table id="datatable"
                                             class="table table-striped table-bordered dt-responsive nowrap w-100">
                                             <thead>
-                                                <tr>
-                                                    <th>ID Prodi</th>
-                                                    <th>Nama Perguruan Tinggi</th>
+                                                <tr style="text-align: center">
+                                                    {{-- <th>ID Prodi</th> --}}
                                                     <th>Kode Prodi</th>
                                                     <th>Nama Prodi</th>
+                                                    <th>Nama Perguruan Tinggi</th>
                                                     <th>Status</th>
                                                     <th>Jenjang Pendidikan</th>
                                                 </tr>
@@ -70,29 +70,48 @@
                 serverSide: true,
                 responsive: true,
                 ajax: "{{ route('all_prodi.data') }}",
-                columns: [{
-                        data: 'id_prodi',
-                        name: 'id_prodi'
-                    },
-                    {
-                        data: 'nm_lemb',
-                        name: 'nm_lemb'
-                    },
+                columns: [
+                    // {
+                    //     data: 'id_prodi',
+                    //     name: 'id_prodi'
+                    // },
                     {
                         data: 'kode_prodi',
-                        name: 'kode_prodi'
+                        name: 'kode_prodi',
+                        createdCell: function(td, cellData, rowData, row, col) {
+                            $(td).css({
+                                'text-align': 'center',
+                                'vertical-align': 'middle'
+                            });
+                        }
                     },
                     {
                         data: 'nama_prodi',
                         name: 'nama_prodi'
                     },
                     {
+                        data: 'nm_lemb',
+                        name: 'nm_lemb'
+                    },
+                    {
                         data: 'status',
-                        name: 'status'
+                        name: 'status',
+                        createdCell: function(td, cellData, rowData, row, col) {
+                            $(td).css({
+                                'text-align': 'center',
+                                'vertical-align': 'middle'
+                            });
+                        }
                     },
                     {
                         data: 'nm_jenj_didik',
-                        name: 'nm_jenj_didik'
+                        name: 'nm_jenj_didik',
+                        createdCell: function(td, cellData, rowData, row, col) {
+                            $(td).css({
+                                'text-align': 'center',
+                                'vertical-align': 'middle'
+                            });
+                        }
                     },
                 ]
             });

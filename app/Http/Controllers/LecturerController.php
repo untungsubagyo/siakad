@@ -36,18 +36,24 @@ class LecturerController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function ($data) {
                 return '
-                        <a href="' . route('lecturer.show', $data->id) . '" class="btn btn-info btn-sm show m-0"><i class="fas fa-eye"></i>Detail
-                        </a>
-                        <a href="'.route('lecturer.edit', $data->id).'" class="btn btn-warning btn-sm edit m-0"><i class="fas fa-pencil-alt"></i> Edit
-                        </a>
-                        <form id="delete-form-' . $data->id . '" 
-                              onsubmit="event.preventDefault(); confirmDelete(' . $data->id . ');" 
-                              action="' . route('lecturer.destroy', $data->id) . '" 
-                              method="POST" style="display:inline;">
-                            ' . csrf_field() . method_field('DELETE') . '
-                            <button type="submit" class="btn btn-danger btn-sm delete m-0"><i class="fas fa-trash-alt"></i> Hapus
-                            </button>
-                      </form>';
+                <div style="text-align: center;">
+                    <a href="' . route('lecturer.show', $data->id) . '" class="btn btn-info btn-sm show m-0">
+                        <i class="fas fa-eye"></i> Detail
+                    </a>
+                    <a href="'.route('lecturer.edit', $data->id).'" class="btn btn-warning btn-sm edit m-0">
+                        <i class="fas fa-pencil-alt"></i> Edit
+                    </a>
+                    <form id="delete-form-' . $data->id . '" 
+                        onsubmit="event.preventDefault(); confirmDelete(' . $data->id . ');" 
+                        action="' . route('lecturer.destroy', $data->id) . '" 
+                        method="POST" style="display:inline;">
+                        ' . csrf_field() . method_field('DELETE') . '
+                        <button type="submit" class="btn btn-danger btn-sm delete m-0">
+                            <i class="fas fa-trash-alt"></i> Hapus
+                        </button>
+                    </form>
+                </div>';
+
             })
             ->rawColumns(['action'])
             ->make(true);
@@ -113,18 +119,14 @@ class LecturerController extends Controller
     //show
     public function show($id)
     {
-        // Mengambil data dosen berdasarkan ID
         $lecturer = Lecturer::with(['ActiveStatus', 'employee_level', 'all_prodi'])->findOrFail($id);
 
-
-        // Menampilkan halaman show dengan data dosen
         return view('pages.admin.lecturer.show', compact('lecturer'));
 
     }
-    // Show the form for editing the specified lecturer
     public function edit($id)
     {
-        $lecturer = Lecturer::findOrFail($id); // Menggunakan id sebagai primary key
+        $lecturer = Lecturer::findOrFail($id);
         $activeStatuses = Active_status::all();
         $employeeLevels = Employee_level::all();
         
@@ -142,16 +144,13 @@ class LecturerController extends Controller
         return view('pages.admin.lecturer.form_edit', compact('lecturer', 'activeStatuses', 'employeeLevels', 'prodiList'));
     }
 
-    // Update the specified lecturer in the database
     public function update(Request $request, $id)
 {
-    // Ubah '-' menjadi null sebelum validasi
     $request->merge([
         'nuptk' => $request->nuptk === '-' ? null : $request->nuptk,
         'nik' => $request->nik === '-' ? null : $request->nik,
     ]);
 
-    // Lakukan validasi setelah merubah data
     $request->validate([
         'nuptk' => 'nullable|string|max:16|unique:lecturer,nuptk,' . $id,
         'nidn' => 'nullable|string|max:10|unique:lecturer,nidn,' . $id,
