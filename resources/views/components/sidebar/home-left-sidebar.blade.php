@@ -1,7 +1,7 @@
 <div class="vertical-menu">
     <div data-simplebar class="h-100">
         <!--- Sidemenu -->
-        <div id="sidebar-menu" style="width: 30rem">
+        <div id="sidebar-menu">
             <!-- Left Menu Start -->
             <ul class="metismenu list-unstyled" id="side-menu">
                 <li>
@@ -18,7 +18,7 @@
                         <i data-feather="database"></i>
                         <span data-key="t-apps">Data Umum</span>
                     </a>
-                    <ul class="sub-menu" aria-expanded="false">
+                    <ul class="sub-menu" id='data-umum' aria-expanded="false">
                         <li>
                             <a href="/admin/identitas-pt">
                                 <span data-key="t-identitas-pt">Identitas PT</span>
@@ -39,8 +39,8 @@
                                 <span data-key="t-prodi-pt">Program Studi PT</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="{{ route('buildings.index') }}">
+                        <li id="list-gedung">
+                            <a href="{{ route('buildings.index') }}" id="gedung">
                                 <span data-key="t-gedung">Gedung</span>
                             </a>
                         </li>
@@ -72,7 +72,7 @@
                         <i data-feather="clipboard"></i>
                         <span data-key="t-components">Data Perkuliahan</span>
                     </a>
-                    <ul class="sub-menu" aria-expanded="false">
+                    <ul class="sub-menu" id="data-perkuliahan" aria-expanded="false">
                         <li>
                             <a href="{{ route('periode_pmb.index') }}">
                                 <span data-key="t-pmb">PMB</span>

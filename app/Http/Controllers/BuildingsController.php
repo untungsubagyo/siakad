@@ -9,9 +9,12 @@ use Yajra\DataTables\DataTables;
 
 class BuildingsController extends Controller
 {
-    public function index(){
+    public function index()
+    {
+        $menu = 'data';
+        $submenu = 'buildings';
         // $datas = Building::latest()->paginate(10);
-        return view('pages.admin.buildings.index');
+        return view('pages.admin.buildings.index', compact('menu', 'submenu'));
     }
 
     public function data(Request $request)
@@ -20,20 +23,20 @@ class BuildingsController extends Controller
             $buildings = Building::query();
 
             return DataTables::of($buildings)
-            ->addColumn('action', function ($row) {
-                return '<a href="'.route('buildings.edit', $row->id).'" class="btn btn-warning btn-sm edit m-0"><i class="fas fa-pencil-alt"></i> Edit
+                ->addColumn('action', function ($row) {
+                    return '<a href="' . route('buildings.edit', $row->id) . '" class="btn btn-warning btn-sm edit m-0"><i class="fas fa-pencil-alt"></i> Edit
                         </a>
-                        <form id="delete-form-' . $row->id . '" 
-                              onsubmit="event.preventDefault(); confirmDelete(' . $row->id . ');" 
-                              action="' . route('buildings.destroy', $row->id) . '" 
+                        <form id="delete-form-' . $row->id . '"
+                              onsubmit="event.preventDefault(); confirmDelete(' . $row->id . ');"
+                              action="' . route('buildings.destroy', $row->id) . '"
                               method="POST" style="display:inline;">
                             ' . csrf_field() . method_field('DELETE') . '
                             <button type="submit" class="btn btn-danger btn-sm delete m-0"><i class="fas fa-trash-alt"></i> Hapus
                             </button>
                         </form>';
-            })
-            ->rawColumns(['action'])
-            ->make(true);
+                })
+                ->rawColumns(['action'])
+                ->make(true);
         }
 
         return abort(404);
@@ -43,7 +46,7 @@ class BuildingsController extends Controller
     {
         $menu = 'data';
         $submenu = 'buildings';
-        return view('pages.admin.buildings.form', compact('menu','submenu'));
+        return view('pages.admin.buildings.form', compact('menu', 'submenu'));
     }
 
     public function store(Request $request)
@@ -67,7 +70,7 @@ class BuildingsController extends Controller
         return view('pages.admin.buildings.form_edit', compact('building'));
     }
 
-    // Update the specified building in storage   
+    // Update the specified building in storage
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -76,7 +79,7 @@ class BuildingsController extends Controller
         ]);
 
         $building = Building::findOrFail($id);
-        
+
         $building->update($request->all());
         return redirect()->route('buildings.index')->with('success', 'Building updated successfully');
     }
