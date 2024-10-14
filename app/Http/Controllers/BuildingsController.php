@@ -13,8 +13,9 @@ class BuildingsController extends Controller
     {
         $menu = 'data';
         $submenu = 'buildings';
-        // $datas = Building::latest()->paginate(10);
-        return view('pages.admin.buildings.index', compact('menu', 'submenu'));
+        $menu = 'data';
+        $submenu = 'buildings';
+        return view('pages.admin.buildings.index', compact('menu', 'submenu'), compact('menu', 'submenu'));
     }
 
     public function data(Request $request)
@@ -66,8 +67,10 @@ class BuildingsController extends Controller
 
     public function edit($id)
     {
+        $menu = 'data';
+        $submenu = 'buildings';
         $building = Building::findOrFail($id);
-        return view('pages.admin.buildings.form_edit', compact('building'));
+        return view('pages.admin.buildings.form_edit', compact('building', 'menu', 'submenu'));
     }
 
     // Update the specified building in storage
